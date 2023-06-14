@@ -31,7 +31,7 @@ dotnet build
 arduino
 dotnet run
 
-6. Open your web browser and navigate to https://localhost:5001 to see the application in action.
+
 
 ## Features
 Feature 1: Describe the feature briefly.
