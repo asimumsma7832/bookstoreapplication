@@ -1,0 +1,112 @@
+﻿@model BookModel
+@{
+    ViewData["Title"] = "Add New Book";
+
+}
+
+<div class="container">
+    <h3 class="display-4">Add New Book</h3>
+    <hr />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Hola!</strong> Your book is added successfully. <br /> Click <a asp-controller="Book" asp-action="GetBook" asp-route-id="@ViewBag.BookId">here</a> to view the details.
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    }
+
+    @*<div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+                <span class="sr-only"></span>
+            </div>
+        </div>*@
+
+    @*data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess"
+    data-ajax-failure="myFailure" data-ajax-loading="#myLoader"*@
+
+<form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
+
+    <div asp-validation-summary="All" class="text-danger"></div>  @*This will show error message at once *@
+
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        @*<span asp-validation-for="Title" class="text-danger"></span>*@  @*This will show message one by one below the corresponding field*@
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" class="form-control" />
+        @*<span asp-validation-for="Author" class="text-danger"></span>*@
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        @*<span asp-validation-for="Description" class="text-danger"></span>*@
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label asp-for="Language" class="control-label"></label>
+        <select asp-for="Language" class="form-control" asp-items="ViewBag.Language">
+            <option value="">Please select Language</option>
+
+        </select>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="TotalPages" class="control-label"></label>
+        <input asp-for="TotalPages" class="form-control" />
+        @*<span asp-validation-for="TotalPages" class="text-danger"></span>*@
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="CoverPhoto" class="control-label"></label>
+        <div class="mb-3">
+            <input class="form-control" asp-for="CoverPhoto" id="formFile">
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label asp-for="GalleryFiles" class="control-label"></label>
+        <div class="mb-3">
+            <input class="form-control" asp-for="GalleryFiles" id="formFileGallery">
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        <label asp-for="BookPdf" class="control-label"></label>
+        <div class="mb-3">
+            <input class="form-control" asp-for="BookPdf" id="formFile">
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        <input type="submit" value="Add New Book" class="btn btn-primary" />
+    </div>
+
+
+</form>
+</div>
+
+@*@section scripts {
+<script>
+    function myComplete() {
+        alert("I am from Complete");
+    }
+
+    function mySuccess() {
+        alert("I am from Success");
+    }
+
+    function myFailure() {
+        alert("I am from Failure");
+    }
+</script>
+}*@

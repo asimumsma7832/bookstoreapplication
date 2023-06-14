@@ -1,0 +1,64 @@
+﻿@inject BookStoreApplication.Repository.IBookRepository _bookRepo
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration _config
+@inject Microsoft.Extensions.Options.IOptionsSnapshot<NewBookAlertConfig> _newBookAlertconfig
+@{ 
+    var newBookAlertconfig = _newBookAlertconfig.Get("NewBookAlert");
+    var thirdPartyBookAlertconfig = _newBookAlertconfig.Get("ThirdPartyBook");
+}
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="~/images/lays.png" width="40" height="30" asp-append-version="true">
+                @*@_bookRepo.GetAppName()*@            @* We got this by Dependency Injection  *@
+                @_config["AppName"]                @* We got this by Configuration  *@
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav">
+                    <partial name="_LoginInfo" />
+                </ul>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="aboutus">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="home" asp-action="contactus">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="book" asp-action="getallbooks">All Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="book" asp-action="AddNewBook">Add new book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @if (newBookAlertconfig.DisplayNewBookAlert)                   @*this is space sensitive.*@
+    {
+        <div class="alert alert-info" role="alert">
+            @newBookAlertconfig.BookName
+        </div>
+    }
+
+    @if (thirdPartyBookAlertconfig.DisplayNewBookAlert)           @*this is space sensitive.*@
+    {
+        <div class="alert alert-info" role="alert">
+            @thirdPartyBookAlertconfig.BookName
+        </div>
+    }
+
+</header>
